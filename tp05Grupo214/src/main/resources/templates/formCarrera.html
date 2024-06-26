@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
+    <title>Formulario Carrera</title>
+</head>
+<body>
+    <header th:replace="fragments/fragmentos :: headerEditform"></header>
+    <section class="section">
+        <h1>FORMULARIO CARRERA</h1>
+        <div class="justify-content-center text-center">
+            <form th:object="${nuevaCarrera}" th:action="${flag}?@{/modificarCarrera}:@{/guardarCarrera}" method="post" class="form">
+                <div class="row justify-content-center">
+                    <div class="col-sm-6">
+                        <label for="codigo" class="form-label mt-1">Código</label>
+                        <input type="text" class="form-control" id="codigo" th:field="*{codigo}" th:readonly="${flag}" required>
+                        
+                        <label for="nombre" class="form-label mt-1">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required>
+                        
+                        <label for="departamento" class="form-label mt-1">Departamento</label>
+                        <input type="text" class="form-control" id="departamento" th:field="*{departamento}" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-2 mb-3">Guardar Carrera</button>
+            </form>
+            <br>
+        </div>
+        <br>
+    </section>
+    <footer th:replace="fragments/fragmentos::footerEdit" class="container-fluid"></footer>
+
+    <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
