@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Alumnos</title>
+    <link data-th-href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <header th:replace="fragments/fragmentos :: headerEditform"></header>
+
+    <section class="section">
+        <h1> LISTADO DE ALUMNOS </h1>
+        <table class="table table-striped text-center">
+          <thead>
+            <tr>
+              <th scope="col">DNI</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Apellido</th>
+              <th scope="col">Email</th>
+              <th scope="col">Teléfono</th>
+              <th scope="col">Fecha de Nacimiento</th>
+              <th scope="col">Domicilio</th>
+              <th scope="col">Libreta Universitaria</th>
+              <th scope="col">Edición</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-th-each="alumno : ${listadoAlumnos}">
+              <td data-th-text="${alumno.dni}"></td>
+              <td data-th-text="${alumno.nombre}"></td>
+              <td data-th-text="${alumno.apellido}"></td>
+              <td data-th-text="${alumno.email}"></td>
+              <td data-th-text="${alumno.telefono}"></td>
+              <td data-th-text="${alumno.fechaNacimiento}"></td>
+              <td data-th-text="${alumno.domicilio}"></td>
+              <td data-th-text="${alumno.lu}"></td>
+              <td>
+                <a data-th-href="@{'/borrarAlumno/'+${alumno.dni}}" class="btn btn-danger">Borrar</a>                    
+                <a data-th-href="@{'/modificarAlumno/'+${alumno.dni}}" class="btn btn-warning">Modificar</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+    </section>
+
+    <footer th:replace="fragments/fragmentos::footerEdit" class="container-fluid mt-4"></footer>
+
+    <script data-th-src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}" type="text/javascript"></script>
+</body>
+</html>
