@@ -10,9 +10,10 @@ import ar.edu.unju.fi.model.Carrera;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface CarreraMapDTO {
-    @Mapping(source = "codigo", target = "codigo")
+	@Mapping(source = "codigo", target = "codigo")
     @Mapping(source = "nombre", target = "nombre")
-    @Mapping(source = "descripcion", target = "descripcion")
+    @Mapping(source = "cantidadAnios", target = "cantidadAnios")
+    @Mapping(source = "estado", target = "estado")
     
     CarreraDTO convertirCarreraACarreraDTO(Carrera c);
 

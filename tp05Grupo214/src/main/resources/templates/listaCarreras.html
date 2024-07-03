@@ -16,7 +16,8 @@
                     <tr>
                         <th>Código</th>
                         <th>Nombre</th>
-                        <th>Departamento</th>
+                        <th>Cantidad de Años</th>
+                        <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -24,7 +25,8 @@
                     <tr th:each="carrera : ${listadoCarreras}">
                         <td th:text="${carrera.codigo}">Código</td>
                         <td th:text="${carrera.nombre}">Nombre</td>
-                        <td th:text="${carrera.departamento}">Departamento</td>
+                        <td th:text="${carrera.cantidadAnios}">Cantidad de Años</td>
+                        <td th:text="${carrera.estado}">Estado</td>
                         <td>
                             <a th:href="@{/modificarCarrera/{codigo}(codigo=${carrera.codigo})}" class="btn btn-primary">Editar</a>
                             <a th:href="@{/borrarCarrera/{codigo}(codigo=${carrera.codigo})}" class="btn btn-danger">Borrar</a>

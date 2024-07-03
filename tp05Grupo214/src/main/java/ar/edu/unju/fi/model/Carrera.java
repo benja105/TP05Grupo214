@@ -12,5 +12,6 @@ public class Carrera {
     @Id
     private String codigo;
     private String nombre;
-    private String descripcion;
+    private int cantidadAnios;
+    private String estado;
 }
