@@ -20,8 +20,14 @@
                         <label for="nombre" class="form-label mt-1">Nombre</label>
                         <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required>
                         
-                        <label for="departamento" class="form-label mt-1">Departamento</label>
-                        <input type="text" class="form-control" id="departamento" th:field="*{departamento}" required>
+                        <label for="cantidadAnios" class="form-label mt-1">Cantidad de Años</label>
+                        <input type="number" class="form-control" id="cantidadAnios" th:field="*{cantidadAnios}" required>
+                        
+                        <label for="modalidad" class="form-label">Estado</label>
+                		<select class="form-control" id="estado" th:field="*{estado}" required>
+		                    <option value="activa">activa</option>
+		                    <option value="inactiva">inactiva</option>
+                		</select>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary mt-2 mb-3">Guardar Carrera</button>

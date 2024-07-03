@@ -12,6 +12,6 @@ import lombok.Setter;
 public class CarreraDTO {
     private String codigo;
     private String nombre;
-    private String descripcion;
+    private int cantidadAnios;
+    private String estado;
 }
-
