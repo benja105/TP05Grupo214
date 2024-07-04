@@ -8,22 +8,21 @@ import org.mapstruct.MappingConstants;
 import ar.edu.unju.fi.DTO.DocenteDTO;
 import ar.edu.unju.fi.model.Docente;
 
-@Mapper (componentModel = MappingConstants.ComponentModel. SPRING)
-
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface DocenteMapDTO {
-	@Mapping(source="legajo", target="legajo")
-	@Mapping(source="nombre", target="nombre")
-	@Mapping(source="apellido", target="apellido")
-	@Mapping(source="email", target="email")
-	@Mapping(source="telefono", target="telefono")
-	@Mapping(source="estado", target="estado")
-	
-	DocenteDTO convertirDocenteADocenteDTO(Docente d);
-	
-	@InheritInverseConfiguration
-	Docente convertirDocenteDTOADocente(DocenteDTO ddto);
-	
-	List<DocenteDTO> convertirListaDocentesAListaDocentesDTO (List<Docente> listaD);
-	
-	List<Docente> convertirListaDocentesDTOAListaDocentes (List<DocenteDTO> listaDDTO);
+    @Mapping(source = "legajo", target = "legajoDTO")
+    @Mapping(source = "nombre", target = "nombreDTO")
+    @Mapping(source = "apellido", target = "apellidoDTO")
+    @Mapping(source = "email", target = "emailDTO")
+    @Mapping(source = "telefono", target = "telefonoDTO")
+
+    DocenteDTO convertirDocenteADocenteDTO(Docente d);
+    
+    @Mapping(target = "estado", ignore=true)
+    @InheritInverseConfiguration
+    Docente convertirDocenteDTOADocente(DocenteDTO ddto);
+
+    List<DocenteDTO> convertirListaDocentesAListaDocentesDTO(List<Docente> listaD);
+
+    List<Docente> convertirListaDocentesDTOAListaDocentes(List<DocenteDTO> listaDDTO);
 }

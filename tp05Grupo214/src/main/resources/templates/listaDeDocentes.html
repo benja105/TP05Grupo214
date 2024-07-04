@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <header th:replace="fragments/fragmentos :: headerEditform"></header>
+    <header th:replace="fragments/header::headerEdit"></header>
 
     <section class="section">
 		<h1> LISTADO DE DOCENTES </h1>
@@ -24,14 +24,14 @@
 		  </thead>
 		  <tbody>
 			<tr data-th-each="docente : ${listadoDocentes}">
-			  <td data-th-text="${docente.legajo}"></td>
-			  <td data-th-text="${docente.nombre}"></td>
-			  <td data-th-text="${docente.apellido}"></td>
-			  <td data-th-text="${docente.email}"></td>
-			  <td data-th-text="${docente.telefono}"></td>
+			  <td data-th-text="${docente.legajoDTO}"></td>
+			  <td data-th-text="${docente.nombreDTO}"></td>
+			  <td data-th-text="${docente.apellidoDTO}"></td>
+			  <td data-th-text="${docente.emailDTO}"></td>
+			  <td data-th-text="${docente.telefonoDTO}"></td>
 				  <td>
-					<a data-th-href="@{'/borrarDocente/'+${docente.legajo}}" class="btn btn-danger">Borrar</a>					
-					<a data-th-href="@{'/modificarDocente/'+${docente.legajo}}" class="btn btn-warning" >Modificar</a>
+					<a data-th-href="@{'/borrarDocente/'+${docente.legajoDTO}}" class="btn btn-danger">Borrar</a>					
+					<a data-th-href="@{'/modificarDocente/'+${docente.legajoDTO}}" class="btn btn-warning" >Modificar</a>
 				</td>
 			</tr>
 		   </tbody>
@@ -39,7 +39,7 @@
 		<br>
 	</section>
 
-    <footer th:replace="fragments/fragmentos::footerEdit" class="container-fluid mt-4"></footer>
+    <footer th:replace="fragments/footer::footerEdit" class="container-fluid mt-4"></footer>
 
     <script data-th-src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}" type="text/javascript"></script>
 </body>
