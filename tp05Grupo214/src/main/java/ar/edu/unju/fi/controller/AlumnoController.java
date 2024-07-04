@@ -2,67 +2,82 @@ package ar.edu.unju.fi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unju.fi.DTO.AlumnoDTO;
+import ar.edu.unju.fi.DTO.MateriaDTO;
 import ar.edu.unju.fi.service.AlumnoService;
+import ar.edu.unju.fi.service.MateriaService;
 
 @Controller
 public class AlumnoController {
-	
-	@Autowired
-	AlumnoDTO nuevoAlumnoDTO;
-	
-	@Autowired
-	AlumnoService alumnoService;
-	
-	@GetMapping("/formularioAlumno")
-	public ModelAndView getFormAlumno() {
-		ModelAndView modelView = new ModelAndView("alumno/formAlumno");
-		modelView.addObject("nuevoAlumno",nuevoAlumnoDTO);
-		
-		return modelView;
-	}
-	@PostMapping("/guardarAlumno")
-	public ModelAndView saveAlumno(@ModelAttribute ("nuevoAlumno") AlumnoDTO Alumno) {
-		
-		alumnoService.guardarAlumno(Alumno);
-		ModelAndView modelView = new ModelAndView("Alumno/listaDeAlumnos");
-		modelView.addObject("listadoAlumnos",alumnoService.mostrarAlumno());
-		
-		return modelView;
-	}
-	@GetMapping("/borrarAlumno/{LU}")
-	public ModelAndView borrarAlumno(@PathVariable(name="LU") String LU){
-		//ListadoAlumnos.eliminarAlumno(LU);
-		alumnoService.borrarAlumno(LU);
-		
-		ModelAndView modelView = new ModelAndView("/Alumno/listaDeAlumnos");
-		modelView.addObject("listadoAlumnos",alumnoService.mostrarAlumno());
-		
-		return modelView;
-	}
-	
-	@GetMapping("/modificarAlumno/{LU}")
-	public ModelAndView mostrarFormularioModificarAlumno(@PathVariable(name="LU") String LU){
-		ModelAndView modelView = new ModelAndView("Alumno/modificacionAlumno");
-		modelView.addObject("Alumno", alumnoService.buscarAlumno(LU));
 
-		return modelView;
-	}
-	
-	@PostMapping("/guardarModificacionAlumno")
-	public ModelAndView guardarModificacionAlumno(@ModelAttribute ("Alumno") AlumnoDTO Alumno) {
-		
-		alumnoService.modificarAlumno(Alumno);
-		ModelAndView modelView = new ModelAndView("/Alumno/listaDeAlumnos");
-		modelView.addObject("listadoAlumnos",alumnoService.mostrarAlumno());
-		
-		return modelView;
-	}
-	
+    @Autowired
+    AlumnoDTO nuevoAlumnoDTO;
+
+    @Autowired
+    AlumnoService alumnoService;
+
+    @Autowired
+    MateriaService materiaService;
+
+    @GetMapping("/formularioAlumno")
+    public ModelAndView getFormAlumno() {
+        ModelAndView modelView = new ModelAndView("formAlumno");
+        modelView.addObject("nuevoAlumno", nuevoAlumnoDTO);
+        modelView.addObject("flag", false); // false indica que es una creación
+        return modelView;
+    }
+
+    @PostMapping("/guardarAlumno")
+    public ModelAndView saveAlumno(@ModelAttribute("nuevoAlumno") AlumnoDTO alumno) {
+        alumnoService.guardarAlumno(alumno);
+        return new ModelAndView("redirect:/listadoAlumnos");
+    }
+
+    @GetMapping("/listadoAlumnos")
+    public ModelAndView listarAlumnos() {
+        ModelAndView modelView = new ModelAndView("listaAlumnos");
+        modelView.addObject("listadoAlumnos", alumnoService.mostrarAlumnos());
+        return modelView;
+    }
+
+    @GetMapping("/borrarAlumno/{dni}")
+    public ModelAndView borrarAlumno(@PathVariable(name="dni") String dni) {
+        alumnoService.borrarAlumno(dni);
+        return new ModelAndView("redirect:/listadoAlumnos");
+    }
+
+    @GetMapping("/modificarAlumno/{dni}")
+    public ModelAndView mostrarFormularioModificarAlumno(@PathVariable(name="dni") String dni) {
+        AlumnoDTO alumnoDTO = alumnoService.buscarAlumno(dni);
+        ModelAndView modelView = new ModelAndView("formAlumno");
+        modelView.addObject("nuevoAlumno", alumnoDTO);
+        modelView.addObject("flag", true);
+        return modelView;
+    }
+
+    @PostMapping("/guardarModificacionAlumno")
+    public ModelAndView guardarModificacionAlumno(@ModelAttribute("nuevoAlumno") AlumnoDTO alumno) {
+        alumnoService.modificarAlumno(alumno);
+        return new ModelAndView("redirect:/listadoAlumnos");
+    }
+
+    @GetMapping("/inscribirAlumno")
+    public ModelAndView getFormInscripcion() {
+        ModelAndView modelView = new ModelAndView("formInscripcion");
+        modelView.addObject("listadoAlumnos", alumnoService.mostrarAlumnos());
+        modelView.addObject("listadoMaterias", materiaService.mostrarMaterias());
+        return modelView;
+    }
+
+    @PostMapping("/guardarInscripcion")
+    public ModelAndView saveInscripcion(@RequestParam("alumnoDni") String alumnoDni, @RequestParam("materiaCodigo") String materiaCodigo) {
+        AlumnoDTO alumno = alumnoService.buscarAlumno(alumnoDni);
+        MateriaDTO materia = materiaService.buscarMateria(materiaCodigo);
+        alumnoService.guardarInscripcion(alumno, materia);
+        return new ModelAndView("redirect:/listadoAlumnos");
+    }
+    
 }
